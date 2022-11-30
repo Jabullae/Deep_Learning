@@ -3,6 +3,29 @@ from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, precision_score, recall_score, roc_auc_score
+from sklearn.metrics import f1_score, confusion_matrix, precision_recall_curve, roc_curve, classification_report
+
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.preprocessing import Binarizer
+
+
+# 평가지표 분류
+def get_clf_eval(y_test, pred = None, pred_proba = None):
+    confusion = confusion_matrix(y_test, pred)
+    accuracy = accuracy_score(y_test, pred)
+    precision = precision_score(y_test, pred)
+    recall = recall_score(y_test, pred)
+    f1 = f1_score(y_test, pred)
+    roc_auc = roc_auc_score(y_test, pred_proba)
+    print('오차 행렬')
+    print(confusion)
+    print('정확도 : {:.4f}, 정밀도 : {:.4f}, 재현율 : {:.4f}, F1 : {:.4f}, AUC : {:.4f}'.
+          format(accuracy, precision, recall, f1, roc_auc))
+
+
 
 cancer = load_breast_cancer()      # 사이킷런에서 유방암 데이터 가져오기
 x=cancer.data                # x축에 input 데이터 나열
@@ -24,3 +47,9 @@ mlp = MLPClassifier(hidden_layer_sizes=(10,), activation='logistic', \
 
 mlp.fit(x_train_scaled, y_train)    # 훈련하기
 mlp.score(x_val_scaled, y_val)      # 정확도 평가
+pred = mlp.predict(x_val_scaled)
+pred_proba = mlp.predict_proba(x_val_scaled)[:, 1]
+
+
+# 모델 평가
+get_clf_eval(y_val, pred, pred_proba)
