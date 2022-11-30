@@ -219,3 +219,75 @@ W = np.array([[1, 3, 5], [2, 4, 6]])
 Y = np.dot(X, W)
 
 print(Y)
+
+#############################################################
+# X와 W1을 행렬곱하고 B1을 더하기
+X = np.array([1.0, 0.5])
+W1 = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+B1 = np.array([0.1, 0.2, 0.3])
+
+A1 = np.dot(X, W1) + B1
+
+
+# 시그모이드 함수
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
+# A1을 시그모이드 함수에 적용
+Z1 = sigmoid(A1)
+print(A1)
+print(Z1)
+
+
+# W2와 Z1을 행렬곱하고 B2를 더하기
+W2 = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+B2 = np.array([0.1, 0.2])
+
+A2 = np.dot(Z1, W2) + B2
+
+# A2를 시그모이드 함수에 적용
+Z2 = sigmoid(A2)
+
+
+def identity_function(x):
+    return x
+
+# W3과
+W3 = np.array([[0.1, 0.3], [0.2, 0.4]])
+B3 = np.array([0.1, 0.2])
+
+A3 = np.dot(Z2, W3) + B3
+Y = identity_function(A3)
+Y
+
+
+# 3층 신경망 구현
+def init_network():
+    network = {}
+    network['W1'] = np.array([[0.1, 0.3, 0.5], [0.2, 0.4, 0.6]])
+    network['B1'] = np.array([0.1, 0.2, 0.3])
+    network['W2'] = np.array([[0.1, 0.4], [0.2, 0.5], [0.3, 0.6]])
+    network['B2'] = np.array([0.1, 0.2])
+    network['W3'] = np.array([[0.1, 0.3], [0.2, 0.4]])
+    network['B3'] = np.array([0.1, 0.2])
+
+    return network
+
+def forward(network, x):
+    W1, W2, W3 = network['W1'], network['W2'], network['W3']
+    b1, b2, b3 = network['B1'], network['B2'], network['B3']
+
+    a1 = np.dot(x, W1) + b1
+    z1 = sigmoid(a1)
+    a2 = np.dot(z1, W2) + b2
+    z2 = sigmoid(a2)
+    a3 = np.dot(z2, W3) + b3
+    y = identity_function(a3)
+
+    return y
+
+network = init_network()
+x = np.array([1.0, 0.5])
+y = forward(network, x)
+print(y)
