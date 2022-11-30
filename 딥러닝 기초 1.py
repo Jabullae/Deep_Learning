@@ -40,6 +40,7 @@ print(NAND(1, 1), 'AND', OR(1, 1), '=>', XOR(1, 1))
 import numpy as np
 import matplotlib.pylab as plt
 
+
 x = np.arange(-6, 6, 0.01)
 
 
@@ -58,6 +59,8 @@ def linear_func(x): # 1차함수
 
 #그래프 출력
 plt.plot(x, linear_func(x), linestyle='--', label="linear")
+plt.legend()
+plt.show()
 
 
 #######################################################
@@ -80,6 +83,8 @@ def sgn_func(x): # 부호함수(sign function)
 
 #그래프 출력
 plt.plot(x, sgn_func(x), linestyle='--', label="sign function")
+plt.legend()
+plt.show()
 
 
 #######################################################
@@ -112,6 +117,8 @@ def softsign_func(x): # Softsign 함수
 
 #그래프 출력
 plt.plot(x, softsign_func(x), linestyle='--', label="Softsign")
+plt.legend()
+plt.show()
 
 
 
@@ -147,6 +154,8 @@ def trelu_func(x): # Thresholded ReLU
 
 #그래프 출력
 plt.plot(x, trelu_func(x), linestyle='--', label="Thresholded ReLU")
+plt.legend()
+plt.show()
 
 
 
