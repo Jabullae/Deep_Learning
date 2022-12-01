@@ -291,3 +291,16 @@ network = init_network()
 x = np.array([1.0, 0.5])
 y = forward(network, x)
 print(y)
+
+
+
+# 소프트 맥스 함수
+def softmax(a):
+    c = np.max(a)
+    exp_a = np.exp(a-c) # 오버플로 해결
+    exp_sum_a = np.sum(exp_a)
+    return exp_a / exp_sum_a
+
+a = np.array([0.3, 2.9, 4.0])
+y = softmax(a)
+print(y)
